@@ -30,4 +30,17 @@ public class TimoLoginModule extends ReactContextBaseJavaModule {
         promise.resolve(a * b);
     }
 
+    @ReactMethod
+    public void checkCompanyExpiry(String company, String endpoint, Promise promise) {
+      OkHttpClient client = new OkHttpClient.Builder().fastFallback(true).build();
+      Request request = new Request.Builder().url(endpoint).build();
+      Call call = client.newCall(request);
+      try {
+        Response response = call.execute();
+        promise.resolve(response.body().string());
+      } catch (IOException e) {
+        e.printStackTrace();
+        promise.reject("Custom Error", e);
+      }
+    }
 }

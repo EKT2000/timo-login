@@ -6,7 +6,9 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const TimoLogin = NativeModules.TimoLogin  ? NativeModules.TimoLogin  : new Proxy(
+const TimoLogin = NativeModules.TimoLogin
+  ? NativeModules.TimoLogin
+  : new Proxy(
       {},
       {
         get() {
@@ -17,4 +19,11 @@ const TimoLogin = NativeModules.TimoLogin  ? NativeModules.TimoLogin  : new Prox
 
 export function multiply(a: number, b: number): Promise<number> {
   return TimoLogin.multiply(a, b);
+}
+
+export function checkCompanyExpiry(
+  company: string,
+  endpoint: string
+): Promise<string> {
+  return TimoLogin.checkCompanyExpiry(company, endpoint);
 }
